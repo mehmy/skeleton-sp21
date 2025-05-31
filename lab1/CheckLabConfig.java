@@ -1,3 +1,5 @@
+package lab1;
+
 import java.io.File;
 
 public class CheckLabConfig {
