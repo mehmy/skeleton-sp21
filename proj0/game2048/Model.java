@@ -1,7 +1,9 @@
 package game2048;
 
 import java.util.Formatter;
+import java.util.Iterator;
 import java.util.Observable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /** The state of a game of 2048.
@@ -31,6 +33,8 @@ public class Model extends Observable {
         board = new Board(size);
         score = maxScore = 0;
         gameOver = false;
+        emptySpaceExists(board);
+
     }
 
     /** A new 2048 game where RAWVALUES contain the values of the tiles
@@ -137,7 +141,9 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        b.size();
+        for (Tile tile : b) {
+            if (tile == null) return true;
+        }
         return false;
     }
 
