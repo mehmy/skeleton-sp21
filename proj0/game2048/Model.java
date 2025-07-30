@@ -166,10 +166,38 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
-    }
+        if (emptySpaceExists(b)) {
+            return true;
+        }
 
+        for (Tile tile : b) {
+            int col = tile.col();
+            int row = tile.row();
+            int value = tile.value();
+
+            int[][] directions = {
+                    {-1, 0}, // left
+                    {1, 0},  // right
+                    {0, -1}, // up
+                    {0, 1}   // down
+            };
+
+            for (int[] dir : directions) {
+                int newCol = col + dir[0];
+                int newRow = row + dir[1];
+
+                if (newCol >= 0 && newCol < b.size() &&
+                        newRow >= 0 && newRow < b.size()) {
+
+                    Tile neighbor = b.tile(newCol, newRow);
+                    if (neighbor != null && neighbor.value() == value) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+}
 
     @Override
      /** Returns the model as a string, used for debugging. */
